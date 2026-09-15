@@ -60,23 +60,58 @@
                 </div>
                 <div class="gastro-dashboard">
                     <div class="gastro-sidebar">
-                        <strong>GastroBalance</strong><span>Inventario</span><span>Recetas</span><span>Ventas</span><span>Finanzas</span>
+                        <strong>GastroBalance</strong>
+                        <button class="gastro-tab is-active" type="button"
+                            data-gastro-tab="dashboard">Dashboard</button>
+                        <button class="gastro-tab" type="button" data-gastro-tab="inventario">Inventario</button>
+                        <button class="gastro-tab" type="button" data-gastro-tab="recetas">Recetas</button>
+                        <button class="gastro-tab" type="button" data-gastro-tab="ventas">Ventas</button>
+                        <button class="gastro-tab" type="button" data-gastro-tab="finanzas">Finanzas</button>
                     </div>
                     <div class="gastro-content">
-                        <p class="gastro-eyebrow">Resumen operativo</p>
-                        <h3>Controla tu negocio gastronómico</h3>
-                        <div class="gastro-metrics">
-                            <div><strong>CLP $ 1.240.000</strong><span>Valor inventario</span></div>
-                            <div><strong>CLP $ 420.000</strong><span>Costos semanales</span></div>
-                            <div><strong>35%</strong><span>Margen objetivo</span></div>
+                        <div class="gastro-panel is-active" data-gastro-panel="dashboard">
+                            <p class="gastro-eyebrow">Resumen operativo</p>
+                            <h3>Controla tu negocio gastronómico</h3>
+                            <div class="gastro-metrics">
+                                <div><strong>CLP $ 1.240.000</strong><span>Valor inventario</span></div>
+                                <div><strong>CLP $ 420.000</strong><span>Costos semanales</span></div>
+                                <div><strong>35%</strong><span>Margen objetivo</span></div>
+                            </div>
+                            <div class="gastro-table"><strong>Recetas activas</strong><span>Bowl de
+                                    pollo</span><span>Bowl veggie</span></div>
                         </div>
-                        <div class="gastro-table"><strong>Recetas activas</strong><span>Bowl de pollo</span><span>Bowl
-                                veggie</span></div>
+                        <div class="gastro-panel" data-gastro-panel="inventario">
+                            <p class="gastro-eyebrow">Inventario</p>
+                            <h3>Ingredientes disponibles</h3>
+                            <div class="gastro-table"><span>Pollo · 24 kg · $4.800/kg</span><span>Arroz · 18 kg ·
+                                    $1.300/kg</span><span>Verduras · 12 kg · $2.900/kg</span></div>
+                        </div>
+                        <div class="gastro-panel" data-gastro-panel="recetas">
+                            <p class="gastro-eyebrow">Recetas</p>
+                            <h3>Escandallo y precios</h3>
+                            <div class="gastro-table"><span>Bowl de pollo · costo $3.900</span><span>Bowl veggie ·
+                                    margen objetivo 35%</span></div>
+                        </div>
+                        <div class="gastro-panel" data-gastro-panel="ventas">
+                            <p class="gastro-eyebrow">Ventas</p>
+                            <h3>Rendimiento semanal</h3>
+                            <div class="gastro-metrics">
+                                <div><strong>142</strong><span>Platos vendidos</span></div>
+                                <div><strong>$1.640.000</strong><span>Ventas semanales</span></div>
+                            </div>
+                        </div>
+                        <div class="gastro-panel" data-gastro-panel="finanzas">
+                            <p class="gastro-eyebrow">Finanzas</p>
+                            <h3>Punto de equilibrio</h3>
+                            <div class="gastro-table"><span>Costos fijos semanales · $420.000</span><span>Unidades
+                                    estimadas · 86</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="project-actions"><a class="btn-link" href="./demo_gastrobalance/README.md" target="_blank"
-                    rel="noopener noreferrer">Cómo ejecutar demo</a><a class="btn-link"
+            <div class="project-actions"><a class="btn-link"
+                    href="https://github.com/Nesdry0/nesdry0.github.io/blob/main/demo_gastrobalance/README.md"
+                    target="_blank" rel="noopener noreferrer">Ver instrucciones</a><a class="btn-link"
                     href="https://github.com/Nesdry0" target="_blank" rel="noopener noreferrer">Ver código</a></div>
         </section>
         <footer>
