@@ -106,46 +106,8 @@
         });
     });
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            var formAction = contactForm.getAttribute('action');
-            var formData = new FormData(contactForm);
-
-            if (!formAction || formAction.includes('your-form-id')) {
-                contactStatus.textContent = 'Falta configurar el endpoint real del formulario. Reemplaza "your-form-id" con tu ID de Formspree.';
-                contactStatus.style.color = '#ffb4b4';
-                return;
-            }
-
-            contactStatus.textContent = 'Enviando tu mensaje...';
-            contactStatus.style.color = '#d9f3ff';
-
-            fetch(formAction, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(function (response) {
-                if (response.ok) {
-                    contactForm.reset();
-                    contactStatus.textContent = '¡Mensaje enviado correctamente!';
-                    contactStatus.style.color = '#9ef7c7';
-                    return;
-                }
-
-                return response.json().then(function (data) {
-                    var errorMessage = data && data.errors && data.errors.length ? data.errors[0].message : 'No se pudo enviar el mensaje.';
-                    throw new Error(errorMessage);
-                });
-            }).catch(function (error) {
-                contactStatus.textContent = 'No se pudo enviar el mensaje. Inténtalo de nuevo o contáctame por correo directo.';
-                contactStatus.style.color = '#ffb4b4';
-                console.error(error);
-            });
-        });
+    if (contactForm && contactStatus) {
+        contactStatus.textContent = 'Envía tu mensaje y revisa tu correo o Formspree.';
     }
 
 })();
