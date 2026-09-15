@@ -2,6 +2,7 @@
     var contactForm = document.getElementById('contactForm');
     var contactStatus = document.getElementById('contactStatus');
     var welcomeOverlay = document.querySelector('.welcome-overlay');
+    var welcomeButton = document.querySelector('.welcome-button');
     var backgroundVideo = document.querySelector('.background-video');
 
     if (backgroundVideo) {
@@ -17,8 +18,15 @@
             }, 350);
         }
 
-        welcomeOverlay.addEventListener('click', closeWelcome);
+        welcomeOverlay.addEventListener('click', function (event) {
+            if (event.target === welcomeOverlay || event.target === welcomeButton) {
+                closeWelcome();
+            }
+        });
 
+        if (welcomeButton) {
+            welcomeButton.addEventListener('click', closeWelcome);
+        }
     }
     var demoScreens = document.querySelectorAll('.demo-screen');
     var demoSteps = document.querySelectorAll('.demo-step');
