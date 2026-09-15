@@ -2,7 +2,6 @@
     var contactForm = document.getElementById('contactForm');
     var contactStatus = document.getElementById('contactStatus');
     var welcomeOverlay = document.querySelector('.welcome-overlay');
-    var welcomeButton = document.querySelector('.welcome-button');
     var backgroundVideo = document.querySelector('.background-video');
 
     if (backgroundVideo) {
@@ -10,13 +9,16 @@
         backgroundVideo.volume = 0;
     }
 
-    if (welcomeOverlay && welcomeButton) {
-        welcomeButton.addEventListener('click', function () {
+    if (welcomeOverlay) {
+        function closeWelcome() {
             welcomeOverlay.classList.add('is-closing');
             window.setTimeout(function () {
                 welcomeOverlay.remove();
             }, 350);
-        });
+        }
+
+        welcomeOverlay.addEventListener('click', closeWelcome);
+
     }
     var demoScreens = document.querySelectorAll('.demo-screen');
     var demoSteps = document.querySelectorAll('.demo-step');
@@ -32,6 +34,20 @@
             profilePhoto.parentElement.classList.add('is-placeholder');
         });
     }
+
+    document.querySelectorAll('.gastro-preview').forEach(function (preview) {
+        preview.querySelectorAll('[data-gastro-tab]').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                var tabName = tab.dataset.gastroTab;
+                preview.querySelectorAll('[data-gastro-tab]').forEach(function (item) {
+                    item.classList.toggle('is-active', item === tab);
+                });
+                preview.querySelectorAll('[data-gastro-panel]').forEach(function (panel) {
+                    panel.classList.toggle('is-active', panel.dataset.gastroPanel === tabName);
+                });
+            });
+        });
+    });
 
     function goDemoScreen(screenNumber) {
         currentScreen = screenNumber;
