@@ -63,6 +63,67 @@ body.show-cv .container {
     opacity: 0;
 }
 
+.welcome-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    padding: 1.2rem;
+    background: rgba(248, 252, 255, 0.74);
+    backdrop-filter: blur(8px);
+    transition: opacity 0.35s ease;
+}
+
+.welcome-overlay.is-closing {
+    opacity: 0;
+}
+
+.welcome-card {
+    width: min(620px, 100%);
+    padding: clamp(1.6rem, 5vw, 3rem);
+    border: 1px solid rgba(23, 105, 170, 0.2);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 24px 70px rgba(44, 94, 133, 0.18);
+    text-align: center;
+}
+
+.welcome-kicker {
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.welcome-card h2 {
+    justify-content: center;
+    margin-top: 0.7rem;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.welcome-card h2::before {
+    display: none;
+}
+
+.welcome-card>p:not(.welcome-kicker) {
+    margin: 1rem auto 1.4rem;
+    max-width: 38rem;
+    color: var(--text-secondary);
+}
+
+.welcome-button {
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #ffffff;
+}
+
+.welcome-button:hover {
+    background: #0f578f;
+}
+
 .intro-card {
     width: min(850px, 100%);
     border: 1px solid rgba(255, 255, 255, 0.16);
@@ -262,6 +323,7 @@ body.show-cv .container {
 
     .container,
     .intro-overlay,
+    .welcome-overlay,
     .btn-intro,
     .orb,
     .mesh-layer {

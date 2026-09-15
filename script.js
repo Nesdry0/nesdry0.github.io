@@ -1,8 +1,8 @@
 (function () {
     var contactForm = document.getElementById('contactForm');
     var contactStatus = document.getElementById('contactStatus');
-    var moduleSections = document.querySelectorAll('.module-section');
-    var moduleLinks = document.querySelectorAll('.module-link');
+    var welcomeOverlay = document.querySelector('.welcome-overlay');
+    var welcomeButton = document.querySelector('.welcome-button');
     var backgroundVideo = document.querySelector('.background-video');
 
     if (backgroundVideo) {
@@ -10,25 +10,14 @@
         backgroundVideo.volume = 0;
     }
 
-    function showModule(moduleName) {
-        moduleSections.forEach(function (section) {
-            section.classList.toggle('is-visible', section.dataset.module === moduleName);
+    if (welcomeOverlay && welcomeButton) {
+        welcomeButton.addEventListener('click', function () {
+            welcomeOverlay.classList.add('is-closing');
+            window.setTimeout(function () {
+                welcomeOverlay.remove();
+            }, 350);
         });
-        moduleLinks.forEach(function (link) {
-            link.classList.toggle('active', link.dataset.module === moduleName);
-        });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    moduleLinks.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            showModule(link.dataset.module);
-            window.history.replaceState(null, '', link.hash);
-        });
-    });
-
-    showModule(window.location.hash === '#curriculum' ? 'curriculum' : window.location.hash === '#contacto' ? 'contacto' : window.location.hash === '#portafolio' ? 'portafolio' : 'inicio');
     var demoScreens = document.querySelectorAll('.demo-screen');
     var demoSteps = document.querySelectorAll('.demo-step');
     var demoProgress = document.getElementById('demoProgress');

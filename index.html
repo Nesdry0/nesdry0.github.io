@@ -16,10 +16,18 @@
 
 <body class="show-cv">
 
+    <section class="welcome-overlay" aria-label="Bienvenida">
+        <div class="welcome-card">
+            <p class="welcome-kicker">Bienvenida a mi espacio profesional</p>
+            <h2>Hola, soy Nesdry Osorio</h2>
+            <p>Estudiante de Analista Programador, próxima Ingeniera Informática y Técnica en Contabilidad.</p>
+            <button class="btn-intro welcome-button" type="button">Entrar al inicio</button>
+        </div>
+    </section>
+
     <div class="bg-3d" aria-hidden="true">
         <video class="background-video" autoplay muted loop playsinline>
             <source src="./assets/fondo.mp4" type="video/mp4">
-            <source src="./assets/fondo.webm" type="video/webm">
         </video>
         <div class="background-video-tint"></div>
         <span class="orb orb-1"></span>
@@ -37,10 +45,10 @@
             <div class="subtitle">Analista Programador & Técnico Medio en Contabilidad</div>
 
             <nav class="site-nav" aria-label="Navegación principal">
-                <a class="module-link active" href="index.html">Inicio</a>
-                <a class="module-link" href="portafolio.html">Portafolio</a>
-                <a class="module-link" href="curriculum.html">Currículum</a>
-                <a class="module-link" href="contacto.html">Contacto</a>
+                <a class="active" href="index.html">Inicio</a>
+                <a href="portafolio.html">Portafolio</a>
+                <a href="curriculum.html">Currículum</a>
+                <a href="contacto.html">Contacto</a>
             </nav>
 
             <div class="contact-bar">
@@ -55,7 +63,7 @@
         </header>
 
         <!-- SOBRE MI -->
-        <section id="inicio" class="module-section" data-module="inicio">
+        <section id="inicio" class="module-section is-visible" data-module="inicio">
             <div class="profile-hero">
                 <div class="profile-photo" data-photo-slot>
                     <img src="./assets/foto-perfil.png" alt="Foto de Nesdry Osorio" data-profile-photo>
@@ -65,11 +73,12 @@
                     <p class="hero-kicker">Hola, soy Nesdry</p>
                     <h2>Construyo soluciones con tecnología, creatividad y propósito.</h2>
                     <p class="summary-text">Estudiante de Analista Programador, próxima Ingeniera Informática y Técnica
-                        en Contabilidad.</p>
+                        en Contabilidad. Me gusta y realizo diseño gráfico, soy jugadora competitiva de Wild Rift y
+                        también disfruto el deporte.</p>
                     <div class="profile-traits" aria-label="Áreas e intereses">
                         <span class="trait">Desarrollo web</span>
-                        <span class="trait">Diseño gráfico por pasión</span>
-                        <span class="trait">Jugadora competitiva de Wild Rift</span>
+                        <span class="trait">Diseño gráfico por gusto y pasión</span>
+                        <span class="trait">Wild Rift competitivo</span>
                         <span class="trait">Deportista</span>
                     </div>
                 </div>
