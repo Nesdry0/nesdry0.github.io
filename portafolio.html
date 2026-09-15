@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Nesdry Osorio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body class="show-cv page-shell">
+    <div class="bg-3d" aria-hidden="true">
+        <video class="background-video" autoplay muted loop playsinline>
+            <source src="./assets/fondo.mp4" type="video/mp4">
+            <source src="./assets/fondo.webm" type="video/webm">
+        </video>
+        <div class="background-video-tint"></div><span class="orb orb-1"></span><span class="orb orb-2"></span><span
+            class="orb orb-3"></span><span class="mesh-layer"></span>
+    </div>
+    <main class="container page-container">
+        <header>
+            <span class="header-tag">Portafolio</span>
+            <h1>Proyectos destacados</h1>
+            <div class="subtitle">Desarrollo web, datos y experiencias digitales</div>
+            <nav class="site-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a class="active"
+                    href="portafolio.html">Portafolio</a><a href="curriculum.html">Currículum</a><a
+                    href="contacto.html">Contacto</a></nav>
+        </header>
+        <section class="page-section">
+            <h2>BraveNest</h2>
+            <p class="summary-text">Plataforma web, móvil y API REST para denuncias anónimas y gestión escolar.</p>
+            <div class="project-links"><span class="tag">React</span><span class="tag">Node.js</span><span
+                    class="tag">MongoDB</span><span class="tag">Ciberseguridad</span></div>
+            <div class="demo-preview brave-preview">
+                <div class="preview-heading">
+                    <div><span class="demo-label">Frontend real</span>
+                        <h3>BraveNest en acción</h3>
+                    </div><a class="btn-link btn-link--small" href="./portfolio-demo/index.html" target="_blank"
+                        rel="noopener noreferrer">Abrir demo</a>
+                </div><iframe src="./portfolio-demo/index.html" title="Demo completa de BraveNest"
+                    loading="lazy"></iframe>
+            </div>
+        </section>
+        <section class="page-section">
+            <h2>GastroBalance</h2>
+            <p class="summary-text">Dashboard para costos, inventario, recetas y punto de equilibrio. Requiere Streamlit
+                para ejecutarse.</p>
+            <div class="project-links"><span class="tag">Python</span><span class="tag">Streamlit</span><span
+                    class="tag">PostgreSQL</span><span class="tag">Supabase</span></div>
+            <div class="demo-preview gastro-preview">
+                <div class="preview-heading">
+                    <div><span class="demo-label">Frontend Streamlit</span>
+                        <h3>Dashboard operativo</h3>
+                    </div><span class="demo-status">Demo local</span>
+                </div>
+                <div class="gastro-dashboard">
+                    <div class="gastro-sidebar">
+                        <strong>GastroBalance</strong><span>Inventario</span><span>Recetas</span><span>Ventas</span><span>Finanzas</span>
+                    </div>
+                    <div class="gastro-content">
+                        <p class="gastro-eyebrow">Resumen operativo</p>
+                        <h3>Controla tu negocio gastronómico</h3>
+                        <div class="gastro-metrics">
+                            <div><strong>CLP $ 1.240.000</strong><span>Valor inventario</span></div>
+                            <div><strong>CLP $ 420.000</strong><span>Costos semanales</span></div>
+                            <div><strong>35%</strong><span>Margen objetivo</span></div>
+                        </div>
+                        <div class="gastro-table"><strong>Recetas activas</strong><span>Bowl de pollo</span><span>Bowl
+                                veggie</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="project-actions"><a class="btn-link" href="./demo_gastrobalance/README.md" target="_blank"
+                    rel="noopener noreferrer">Cómo ejecutar demo</a><a class="btn-link"
+                    href="https://github.com/Nesdry0" target="_blank" rel="noopener noreferrer">Ver código</a></div>
+        </section>
+        <footer>
+            <p>© 2026 Nesdry Osorio Ojeda</p>
+        </footer>
+    </main>
+</body>
+
+</html>

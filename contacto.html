@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Nesdry Osorio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body class="show-cv page-shell">
+    <div class="bg-3d" aria-hidden="true"><video class="background-video" autoplay muted loop playsinline>
+            <source src="./assets/fondo.mp4" type="video/mp4">
+        </video>
+        <div class="background-video-tint"></div><span class="orb orb-1"></span><span class="orb orb-2"></span><span
+            class="orb orb-3"></span><span class="mesh-layer"></span>
+    </div>
+    <main class="container page-container">
+        <header><span class="header-tag">Contacto</span>
+            <h1>Conversemos sobre tu próximo proyecto</h1>
+            <div class="subtitle">Oportunidades laborales, servicios y colaboraciones</div>
+            <nav class="site-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a
+                    href="portafolio.html">Portafolio</a><a href="curriculum.html">Currículum</a><a class="active"
+                    href="contacto.html">Contacto</a></nav>
+            <div class="contact-bar"><span class="contact-item">📍 Quinta Normal, Santiago</span><span
+                    class="contact-item">✉️ <a href="mailto:Nesdry12@gmail.com">Nesdry12@gmail.com</a></span><span
+                    class="contact-item">💼 <a href="https://www.linkedin.com/in/nesdry-osorio-ojeda-980374185/"
+                        target="_blank" rel="noopener noreferrer">LinkedIn</a></span></div>
+        </header>
+        <section class="page-section">
+            <h2>Escríbeme</h2>
+            <p class="summary-text">Cuéntame si quieres ofrecerme un empleo, solicitar un servicio o conversar sobre una
+                idea.</p>
+            <form id="contactForm" class="contact-form"><label for="contactName">Nombre</label><input id="contactName"
+                    name="name" type="text" autocomplete="name" required><label for="contactEmail">Correo
+                    electrónico</label><input id="contactEmail" name="email" type="email" autocomplete="email"
+                    required><label for="contactReason">Motivo de contacto</label><select id="contactReason"
+                    name="reason" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="Oferta laboral">Oferta laboral</option>
+                    <option value="Servicio o proyecto">Servicio o proyecto</option>
+                    <option value="Consulta profesional">Consulta profesional</option>
+                </select><label for="contactMessage">Mensaje</label><textarea id="contactMessage" name="message"
+                    rows="7" required></textarea><button class="btn-link form-submit" type="submit">Enviar
+                    mensaje</button>
+                <p id="contactStatus" class="form-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+        <footer>
+            <p>© 2026 Nesdry Osorio Ojeda</p>
+        </footer>
+    </main>
+</body>
+
+</html>

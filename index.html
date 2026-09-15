@@ -7,40 +7,21 @@
     <title>Nesdry Osorio | Analista Programador & Perfil TI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 
 <body class="show-cv">
 
-    <section id="introOverlay" class="intro-overlay" aria-label="Carta de presentación" role="dialog" aria-modal="true">
-        <div class="intro-card">
-            <p class="intro-kicker">Carta de Presentación</p>
-            <h2 class="intro-title">Hola, soy Nesdry Osorio</h2>
-
-            <div class="intro-letter">
-                <p>Mi nombre es Nesdry Osorio y soy estudiante de último semestre de Analista Programador en INACAP, con
-                    formación previa como Técnica en Contabilidad. Durante mi formación académica, he desarrollado
-                    proyectos de programación full stack con Python, React y bases de datos SQL/NoSQL, fortaleciendo mis
-                    habilidades prácticas y mi base técnica.</p>
-                <p>Mi experiencia laboral se ha centrado en el área financiera, especialmente en conciliaciones
-                    bancarias y gestión documental, donde desarrollé atención al detalle y capacidad organizativa. Me
-                    motiva avanzar en el sector tecnológico, aplicando mis conocimientos de desarrollo y programación.
-                </p>
-                <p>Estoy entusiasmada por aportar compromiso, capacidad de aprendizaje y habilidades técnicas en un
-                    entorno donde pueda crecer y contribuir al equipo.</p>
-            </div>
-
-            <div class="intro-actions">
-                <button id="enterCvButton" class="btn-intro" type="button">Ver currículum ahora</button>
-                <p class="intro-hint">Haz clic en cualquier parte de la pantalla para continuar. Si no haces clic, el CV
-                    se mostrará automáticamente en 2 minutos.</p>
-            </div>
-        </div>
-    </section>
-
     <div class="bg-3d" aria-hidden="true">
+        <video class="background-video" autoplay muted loop playsinline>
+            <source src="./assets/fondo.mp4" type="video/mp4">
+            <source src="./assets/fondo.webm" type="video/webm">
+        </video>
+        <div class="background-video-tint"></div>
         <span class="orb orb-1"></span>
         <span class="orb orb-2"></span>
         <span class="orb orb-3"></span>
@@ -55,6 +36,13 @@
             <h1>Nesdry Osorio Ojeda</h1>
             <div class="subtitle">Analista Programador & Técnico Medio en Contabilidad</div>
 
+            <nav class="site-nav" aria-label="Navegación principal">
+                <a class="module-link active" href="index.html">Inicio</a>
+                <a class="module-link" href="portafolio.html">Portafolio</a>
+                <a class="module-link" href="curriculum.html">Currículum</a>
+                <a class="module-link" href="contacto.html">Contacto</a>
+            </nav>
+
             <div class="contact-bar">
                 <span class="contact-item">📍 Quinta Normal, Santiago</span>
                 <span class="contact-item">📞 (56) 9 6264 8669</span>
@@ -67,7 +55,37 @@
         </header>
 
         <!-- SOBRE MI -->
-        <section>
+        <section id="inicio" class="module-section" data-module="inicio">
+            <div class="profile-hero">
+                <div class="profile-photo" data-photo-slot>
+                    <img src="./assets/foto-perfil.png" alt="Foto de Nesdry Osorio" data-profile-photo>
+                    <span class="photo-fallback" aria-hidden="true">NO</span>
+                </div>
+                <div class="profile-copy">
+                    <p class="hero-kicker">Hola, soy Nesdry</p>
+                    <h2>Construyo soluciones con tecnología, creatividad y propósito.</h2>
+                    <p class="summary-text">Estudiante de Analista Programador, próxima Ingeniera Informática y Técnica
+                        en Contabilidad.</p>
+                    <div class="profile-traits" aria-label="Áreas e intereses">
+                        <span class="trait">Desarrollo web</span>
+                        <span class="trait">Diseño gráfico por pasión</span>
+                        <span class="trait">Jugadora competitiva de Wild Rift</span>
+                        <span class="trait">Deportista</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="presentation-letter">
+                <p class="hero-kicker">Carta de presentación</p>
+                <h2>Una mirada más personal</h2>
+                <p class="summary-text">Me estoy formando para crecer en el mundo de la tecnología, combinando mi base
+                    en contabilidad con el desarrollo de aplicaciones y el análisis de datos. Me gusta aprender
+                    haciendo, resolver problemas con orden y transformar ideas en experiencias útiles.</p>
+                <p class="summary-text">También encuentro inspiración en el diseño, el deporte y la competencia. Esas
+                    experiencias fortalecen mi disciplina, creatividad, trabajo en equipo y capacidad para seguir
+                    avanzando.</p>
+            </div>
+
             <h2>Resumen Profesional</h2>
             <p class="summary-text">
                 Estudiante de último semestre de <strong>Analista Programador en INACAP</strong> con formación previa
@@ -79,7 +97,7 @@
         </section>
 
         <!-- HABILIDADES TECNICAS -->
-        <section>
+        <section class="module-section" data-module="curriculum">
             <h2>Habilidades Técnicas</h2>
             <div class="skills-grid">
                 <div class="skill-card">
@@ -127,7 +145,7 @@
         </section>
 
         <!-- PROYECTOS -->
-        <section>
+        <section id="proyectos" class="module-section" data-module="portafolio">
             <h2>Proyectos Destacados</h2>
 
             <!-- Proyecto 1 -->
@@ -156,6 +174,74 @@
                     <span class="tag">MongoDB</span>
                     <span class="tag">Python</span>
                 </div>
+                <div class="project-actions">
+                    <a class="btn-link" href="https://github.com/Nesdry0" target="_blank" rel="noopener noreferrer">Ver
+                        demos</a>
+                    <a class="btn-link" href="https://github.com/Nesdry0" target="_blank" rel="noopener noreferrer">Ver
+                        código</a>
+                </div>
+
+                <div class="brave-demo" aria-label="Demo interactiva de BraveNest">
+                    <div class="brave-demo-header">
+                        <div>
+                            <span class="demo-label">Demo interactiva</span>
+                            <h3>Realiza un reporte de prueba</h3>
+                        </div>
+                        <span id="demoProgress" class="demo-progress">1 / 4</span>
+                    </div>
+                    <div class="demo-steps" aria-hidden="true">
+                        <span class="demo-step active-step" data-step="0"></span>
+                        <span class="demo-step" data-step="1"></span>
+                        <span class="demo-step" data-step="2"></span>
+                        <span class="demo-step" data-step="3"></span>
+                    </div>
+
+                    <div class="demo-screen active" data-screen="0">
+                        <p class="item-sub">Elige cómo quieres usar la demostración.</p>
+                        <div class="demo-options">
+                            <button class="demo-option" type="button" data-mode="report">Quiero reportar una
+                                situación</button>
+                            <button class="demo-option" type="button" data-mode="support">Necesito orientación</button>
+                        </div>
+                    </div>
+                    <div class="demo-screen" data-screen="1" hidden>
+                        <p class="item-sub">Selecciona el tipo de situación.</p>
+                        <div class="demo-options">
+                            <button class="demo-option" type="button" data-type="acoso">Acoso escolar</button>
+                            <button class="demo-option" type="button" data-type="amenaza">Amenaza</button>
+                            <button class="demo-option" type="button" data-type="otra">Otra situación</button>
+                        </div>
+                        <button class="demo-next" type="button" disabled>Continuar</button>
+                    </div>
+                    <div class="demo-screen" data-screen="2" hidden>
+                        <p class="item-sub">Indica dónde ocurrió (dato de ejemplo).</p>
+                        <div class="demo-options">
+                            <button class="demo-option" type="button" data-zone="zs1">Sala de clases</button>
+                            <button class="demo-option" type="button" data-zone="zs2">Patio</button>
+                            <button class="demo-option" type="button" data-zone="zs3">Internet</button>
+                            <button class="demo-option" type="button" data-zone="zs4">Otro lugar</button>
+                        </div>
+                        <button class="demo-next" type="button">Generar código de prueba</button>
+                    </div>
+                    <div class="demo-screen" data-screen="3" hidden>
+                        <p class="item-sub">Tu reporte anónimo de prueba está listo.</p>
+                        <div class="demo-code" id="demoCode">LOBO-LUNA-427</div>
+                        <p class="demo-note">En la aplicación real, este código permite consultar el estado sin revelar
+                            la identidad.</p>
+                        <button class="demo-next" type="button">Reiniciar demo</button>
+                    </div>
+                </div>
+                <div class="demo-preview brave-preview">
+                    <div class="preview-heading">
+                        <div><span class="demo-label">Frontend real</span>
+                            <h3>BraveNest en acción</h3>
+                        </div>
+                        <a class="btn-link btn-link--small" href="./portfolio-demo/index.html" target="_blank"
+                            rel="noopener noreferrer">Abrir demo</a>
+                    </div>
+                    <iframe src="./portfolio-demo/index.html" title="Demo completa de BraveNest"
+                        loading="lazy"></iframe>
+                </div>
             </div>
 
             <!-- Proyecto 2 -->
@@ -179,11 +265,41 @@
                     <span class="tag">PostgreSQL</span>
                     <span class="tag">Supabase</span>
                 </div>
+                <div class="project-actions">
+                    <a class="btn-link" href="./demo_gastrobalance/README.md" target="_blank"
+                        rel="noopener noreferrer">Cómo ejecutar demo</a>
+                    <a class="btn-link" href="https://github.com/Nesdry0" target="_blank" rel="noopener noreferrer">Ver
+                        código</a>
+                </div>
+                <div class="demo-preview gastro-preview">
+                    <div class="preview-heading">
+                        <div><span class="demo-label">Frontend Streamlit</span>
+                            <h3>Dashboard operativo</h3>
+                        </div>
+                        <span class="demo-status">Demo local</span>
+                    </div>
+                    <div class="gastro-dashboard">
+                        <div class="gastro-sidebar">
+                            <strong>GastroBalance</strong><span>Inventario</span><span>Recetas</span><span>Ventas</span><span>Finanzas</span>
+                        </div>
+                        <div class="gastro-content">
+                            <p class="gastro-eyebrow">Resumen operativo</p>
+                            <h3>Controla tu negocio gastronómico</h3>
+                            <div class="gastro-metrics">
+                                <div><strong>CLP $ 1.240.000</strong><span>Valor inventario</span></div>
+                                <div><strong>CLP $ 420.000</strong><span>Costos semanales</span></div>
+                                <div><strong>35%</strong><span>Margen objetivo</span></div>
+                            </div>
+                            <div class="gastro-table"><strong>Recetas activas</strong><span>Bowl de pollo · costo y
+                                    precio sugerido</span><span>Bowl veggie · costo y precio sugerido</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- EXPERIENCIA LABORAL -->
-        <section>
+        <section id="curriculum" class="module-section" data-module="curriculum">
             <h2>Experiencia Laboral</h2>
 
             <div class="experience-card">
@@ -215,7 +331,7 @@
         </section>
 
         <!-- EDUCACION -->
-        <section>
+        <section class="module-section" data-module="curriculum">
             <h2>Educación</h2>
             <div class="experience-card">
                 <div class="experience-header">
@@ -235,7 +351,7 @@
         </section>
 
         <!-- CERTIFICADOS -->
-        <section>
+        <section class="module-section" data-module="curriculum">
             <h2>Certificaciones y Cursos</h2>
             <p class="summary-text cert-intro">
                 Aqui comparto mis documentos digitalizados ya obtenidos y certificaciones de cursos.
@@ -245,7 +361,7 @@
                 <article class="certificate-card">
                     <h3 class="item-title">Certificado principal: Contador Técnico de Nivel Medio</h3>
                     <p class="item-sub">Documento recomendado para mostrar este logro (PDF).</p>
-                    <a class="btn-link" href="./certificados/certificado-contador-tecnico.pdf.pdf" target="_blank"
+                    <a class="btn-link" href="./certificados/certificado-contador-tecnico.pdf" target="_blank"
                         rel="noopener noreferrer">Ver documento</a>
                     <a class="btn-link btn-link--small" href="./certificados/titulo-contador-tecnico.pdf"
                         target="_blank" rel="noopener noreferrer">Ver título (opcional)</a>
@@ -256,13 +372,39 @@
                     <p class="item-sub">Espacio para subir diplomas de cursos (ciberseguridad, datos, desarrollo, etc.).
                     </p>
                     <a class="btn-link" href="./certificados/certificate-english-1-nesdry.pdf" target="_blank"
-                        rel="noopener noreferrer">Abrir
-                        certficado Curso de Inglés</a>
+                        rel="noopener noreferrer">Abrir certificado Curso de Inglés</a>
                     <a class="btn-link" href="./certificados/certificate-english-2-nesdry.pdf" target="_blank"
-                        rel="noopener noreferrer">Abrir
-                        certificado Curso de Inglés</a>
+                        rel="noopener noreferrer">Abrir certificado Curso de Inglés</a>
                 </article>
             </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contacto" class="module-section" data-module="contacto">
+            <h2>Contacto</h2>
+            <p class="summary-text">¿Tienes una oportunidad o quieres conversar sobre un proyecto? Escríbeme.</p>
+
+            <form id="contactForm" class="contact-form">
+                <label for="contactName">Nombre</label>
+                <input id="contactName" name="name" type="text" autocomplete="name" required>
+
+                <label for="contactEmail">Correo electrónico</label>
+                <input id="contactEmail" name="email" type="email" autocomplete="email" required>
+
+                <label for="contactReason">Motivo de contacto</label>
+                <select id="contactReason" name="reason" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="Oferta laboral">Oferta laboral</option>
+                    <option value="Servicio o proyecto">Servicio o proyecto</option>
+                    <option value="Consulta profesional">Consulta profesional</option>
+                </select>
+
+                <label for="contactMessage">Mensaje</label>
+                <textarea id="contactMessage" name="message" rows="5" required></textarea>
+
+                <button class="btn-link form-submit" type="submit">Enviar mensaje</button>
+                <p id="contactStatus" class="form-status" role="status" aria-live="polite"></p>
+            </form>
         </section>
 
         <!-- FOOTER -->

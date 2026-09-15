@@ -1,0 +1,13 @@
+# Entornos y cache de Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Archivos generados por Streamlit
+.streamlit/secrets.toml
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

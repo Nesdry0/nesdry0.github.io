@@ -1,0 +1,992 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BraveNest | Demo interactivo</title>
+    <style>
+        :root {
+            --primary: #4a148c;
+            --primary-dark: #38006b;
+            --primary-light: #7b1fa2;
+            --secondary: #26c6da;
+            --secondary-dark: #0097a7;
+            --danger: #e53935;
+            --warning: #ffa726;
+            --success: #43a047;
+            --bg: #f8f7fc;
+            --card: #fff;
+            --ink: #1a1a2e;
+            --muted: #666;
+            --line: #e8d5f5;
+            --sidebar: 248px;
+            --shadow: 0 2px 12px rgba(0, 0, 0, .07)
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--ink)
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .app {
+            min-height: 100vh;
+            display: flex
+        }
+
+        .sidebar {
+            width: var(--sidebar);
+            flex: none;
+            min-height: 100vh;
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 60%, var(--secondary-dark) 100%);
+            position: sticky;
+            top: 0
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 20px 24px;
+            font-weight: 700;
+            font-size: 18px
+        }
+
+        .brand-icon {
+            font-size: 28px
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 0 12px;
+            flex: 1
+        }
+
+        .nav button {
+            border: 0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #fff;
+            background: transparent;
+            text-align: left;
+            font-size: 14px
+        }
+
+        .nav button:hover,
+        .nav button.active {
+            background: rgba(255, 255, 255, .15);
+            font-weight: 700
+        }
+
+        .user {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255, 255, 255, .2)
+        }
+
+        .user strong {
+            display: block;
+            margin-bottom: 2px
+        }
+
+        .user small {
+            display: block;
+            opacity: .7;
+            margin-bottom: 10px
+        }
+
+        .logout {
+            width: 100%;
+            border: 0;
+            border-radius: 6px;
+            padding: 7px 12px;
+            color: #fff;
+            background: rgba(255, 255, 255, .15);
+            font-size: 12px
+        }
+
+        .content {
+            min-width: 0;
+            flex: 1;
+            padding: 28px;
+            overflow: auto
+        }
+
+        .topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary)
+        }
+
+        .subtitle {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .role-switch {
+            display: flex;
+            gap: 7px
+        }
+
+        .role-switch button {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 8px 13px;
+            color: var(--primary);
+            background: #fff;
+            font-size: 12px;
+            font-weight: 600
+        }
+
+        .role-switch button.active {
+            color: #fff;
+            background: var(--primary)
+        }
+
+        .view {
+            display: none
+        }
+
+        .view.active {
+            display: block;
+            animation: show .25s ease
+        }
+
+        @keyframes show {
+            from {
+                opacity: .2;
+                transform: translateY(5px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px
+        }
+
+        .kpi,
+        .chart,
+        .report-card,
+        .student-table,
+        .mobile-card {
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: var(--shadow)
+        }
+
+        .kpi {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 20px;
+            border-top: 4px solid var(--primary)
+        }
+
+        .kpi:nth-child(2) {
+            border-color: var(--warning)
+        }
+
+        .kpi:nth-child(3) {
+            border-color: var(--success)
+        }
+
+        .kpi:nth-child(4) {
+            border-color: var(--danger)
+        }
+
+        .kpi-icon {
+            font-size: 30px
+        }
+
+        .kpi strong {
+            display: block;
+            color: #1a237e;
+            font-size: 28px
+        }
+
+        .kpi span {
+            display: block;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 20px
+        }
+
+        .chart {
+            padding: 20px
+        }
+
+        .chart h3 {
+            margin-bottom: 18px;
+            color: #333;
+            font-size: 15px
+        }
+
+        .line-chart {
+            height: 190px;
+            display: flex;
+            align-items: end;
+            gap: 12px;
+            padding: 10px 10px 24px;
+            border-bottom: 1px solid #eee;
+            background: repeating-linear-gradient(to bottom, transparent 0, transparent 45px, #eee 46px)
+        }
+
+        .bar {
+            flex: 1;
+            position: relative;
+            min-width: 18px;
+            border-radius: 5px 5px 0 0;
+            background: linear-gradient(var(--primary), var(--primary-light))
+        }
+
+        .bar:nth-child(2n) {
+            background: linear-gradient(var(--secondary), var(--secondary-dark))
+        }
+
+        .bar label {
+            position: absolute;
+            bottom: -24px;
+            width: 100%;
+            text-align: center;
+            color: #888;
+            font-size: 11px
+        }
+
+        .legend {
+            display: flex;
+            gap: 14px;
+            margin-top: 20px;
+            color: #777;
+            font-size: 11px
+        }
+
+        .legend i {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            margin-right: 4px;
+            border-radius: 50%;
+            background: var(--primary)
+        }
+
+        .legend i.teal {
+            background: var(--secondary)
+        }
+
+        .reports-view .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px
+        }
+
+        .filter {
+            border: 0;
+            border-radius: 20px;
+            padding: 7px 14px;
+            background: #e0e0e0;
+            color: #333;
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .filter.active {
+            color: #fff;
+            background: #1a237e
+        }
+
+        .report-list {
+            display: grid;
+            gap: 14px
+        }
+
+        .report-card {
+            padding: 20px
+        }
+
+        .report-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px
+        }
+
+        .anon {
+            color: #1a237e;
+            font-family: monospace;
+            font-size: 13px;
+            font-weight: 700
+        }
+
+        .badge {
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600
+        }
+
+        .pending {
+            color: #f57f17;
+            background: #fff8e1
+        }
+
+        .review {
+            color: #1565c0;
+            background: #e3f2fd
+        }
+
+        .resolved {
+            color: #2e7d32;
+            background: #e8f5e9
+        }
+
+        .report-card p {
+            margin-bottom: 12px;
+            color: #444;
+            line-height: 1.5
+        }
+
+        .meta {
+            display: flex;
+            gap: 16px;
+            color: #666;
+            font-size: 13px
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 14px
+        }
+
+        .actions small {
+            color: #888
+        }
+
+        .action {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 5px 10px;
+            background: #f5f5f5;
+            font-size: 12px
+        }
+
+        .action:hover {
+            border-color: var(--primary);
+            color: var(--primary)
+        }
+
+        .student-table {
+            overflow: auto
+        }
+
+        .student-table table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px
+        }
+
+        .student-table th {
+            padding: 14px 20px;
+            color: #fff;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            text-align: left;
+            font-size: 14px
+        }
+
+        .student-table td {
+            padding: 13px 20px;
+            border-bottom: 1px solid #f3eafc;
+            color: #333;
+            font-size: 14px
+        }
+
+        .search {
+            width: 280px;
+            margin-bottom: 20px;
+            padding: 10px 16px;
+            border: 2px solid var(--line);
+            border-radius: 10px;
+            outline: 0
+        }
+
+        .search:focus {
+            border-color: var(--primary)
+        }
+
+        .mobile-layout {
+            display: grid;
+            grid-template-columns: minmax(260px, 390px) 1fr;
+            align-items: center;
+            gap: 70px;
+            max-width: 980px;
+            margin: 20px auto
+        }
+
+        .phone {
+            padding: 9px;
+            border: 7px solid #32115c;
+            border-radius: 30px;
+            background: #1a0030;
+            box-shadow: 0 20px 40px rgba(74, 20, 140, .2)
+        }
+
+        .phone-screen {
+            min-height: 600px;
+            overflow: hidden;
+            border-radius: 22px;
+            background: var(--bg)
+        }
+
+        .phone-head {
+            padding: 24px 20px 20px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--secondary-dark))
+        }
+
+        .phone-head h2 {
+            margin: 25px 0 5px;
+            font-size: 25px
+        }
+
+        .phone-head p {
+            color: rgba(255, 255, 255, .8);
+            font-size: 12px
+        }
+
+        .phone-body {
+            padding: 20px
+        }
+
+        .progress {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px
+        }
+
+        .progress i {
+            height: 4px;
+            flex: 1;
+            border-radius: 5px;
+            background: #e8d5f5
+        }
+
+        .progress i.done {
+            background: var(--primary)
+        }
+
+        .phone-label {
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 700
+        }
+
+        .choice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px
+        }
+
+        .choice {
+            min-height: 90px;
+            padding: 12px 8px;
+            border: 2px solid #ede7f6;
+            border-radius: 12px;
+            background: #fff;
+            text-align: left;
+            color: var(--ink)
+        }
+
+        .choice:hover,
+        .choice.selected {
+            border-color: var(--primary);
+            background: #f3e5f5
+        }
+
+        .choice strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 23px
+        }
+
+        .choice span {
+            font-size: 12px;
+            font-weight: 700
+        }
+
+        .choice em {
+            display: block;
+            margin-top: 3px;
+            color: #888;
+            font-size: 11px;
+            font-style: normal
+        }
+
+        .primary {
+            width: 100%;
+            margin-top: 14px;
+            padding: 12px;
+            border: 0;
+            border-radius: 10px;
+            color: #fff;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            font-size: 13px;
+            font-weight: 700
+        }
+
+        .primary:disabled {
+            opacity: .4;
+            cursor: not-allowed
+        }
+
+        .back {
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            border: 0;
+            background: none;
+            color: #666;
+            font-size: 12px
+        }
+
+        .success {
+            text-align: center;
+            padding: 35px 15px
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            font-size: 34px
+        }
+
+        .success h2 {
+            font-size: 23px
+        }
+
+        .success p {
+            margin-top: 10px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5
+        }
+
+        .code {
+            margin: 20px 0;
+            padding: 13px;
+            border-radius: 9px;
+            color: var(--primary);
+            background: #f3e5f5;
+            font-family: monospace;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: 2px
+        }
+
+        .pitch h2 {
+            margin: 8px 0 14px;
+            color: var(--primary);
+            font-size: 32px
+        }
+
+        .pitch p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 15px
+        }
+
+        .pitch ul {
+            display: grid;
+            gap: 13px;
+            margin-top: 25px;
+            padding: 0;
+            list-style: none
+        }
+
+        .pitch li {
+            padding: 12px 14px;
+            border-left: 4px solid var(--secondary);
+            background: #fff;
+            border-radius: 0 8px 8px 0;
+            box-shadow: var(--shadow);
+            font-size: 13px
+        }
+
+        .toast {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            max-width: 300px;
+            padding: 13px 16px;
+            border-radius: 8px;
+            color: #fff;
+            background: var(--primary-dark);
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: .25s;
+            font-size: 12px
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: none
+        }
+
+        @media(max-width:850px) {
+            .sidebar {
+                width: 205px
+            }
+
+            .content {
+                padding: 22px
+            }
+
+            .mobile-layout {
+                grid-template-columns: 1fr;
+                gap: 30px
+            }
+
+            .pitch {
+                max-width: 520px
+            }
+
+            .kpis {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(max-width:600px) {
+            .app {
+                display: block
+            }
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                min-height: auto;
+                padding: 12px
+            }
+
+            .brand {
+                padding: 0 10px 12px
+            }
+
+            .nav {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                padding: 0;
+                gap: 4px
+            }
+
+            .nav button {
+                padding: 8px 5px;
+                text-align: center;
+                font-size: 11px
+            }
+
+            .user {
+                display: none
+            }
+
+            .content {
+                padding: 18px 14px
+            }
+
+            .topline {
+                align-items: flex-start;
+                flex-direction: column
+            }
+
+            .role-switch {
+                width: 100%
+            }
+
+            .role-switch button {
+                flex: 1
+            }
+
+            .kpis,
+            .charts {
+                grid-template-columns: 1fr
+            }
+
+            .phone {
+                max-width: 370px;
+                width: 100%;
+                margin: auto
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand"><span class="brand-icon">🛡️</span><span>BraveNest</span></div>
+            <nav class="nav"><button class="active" data-view="dashboard">Dashboard</button><button
+                    data-view="reports">Reportes</button><button data-view="students">Estudiantes</button><button
+                    data-view="protocolos">Protocolos</button></nav>
+            <div class="user"><strong>Admin Colegio</strong><small>Administrador</small><button class="logout">Cerrar
+                    sesión</button></div>
+        </aside>
+        <main class="content">
+            <div class="topline">
+                <div>
+                    <h1 class="title" id="pageTitle">Dashboard — BraveNest</h1>
+                    <p class="subtitle">Panel de Administración</p>
+                </div>
+                <div class="role-switch"><button class="active" data-role="school">Panel PC</button><button
+                        data-role="student">App estudiante</button></div>
+            </div>
+            <section class="view active" id="schoolView">
+                <div id="dashboard" class="admin-page">
+                    <div class="kpis">
+                        <div class="kpi"><span class="kpi-icon">📋</span>
+                            <div><strong>142</strong><span>Total denuncias</span></div>
+                        </div>
+                        <div class="kpi"><span class="kpi-icon">⏳</span>
+                            <div><strong>38</strong><span>Pendientes</span></div>
+                        </div>
+                        <div class="kpi"><span class="kpi-icon">✅</span>
+                            <div><strong>87</strong><span>Resueltos</span></div>
+                        </div>
+                        <div class="kpi"><span class="kpi-icon">🚨</span>
+                            <div><strong>12</strong><span>Críticos</span></div>
+                        </div>
+                    </div>
+                    <div class="charts">
+                        <div class="chart">
+                            <h3>Tendencia mensual de denuncias</h3>
+                            <div class="line-chart">
+                                <div class="bar" style="height:42%"><label>Oct</label></div>
+                                <div class="bar" style="height:58%"><label>Nov</label></div>
+                                <div class="bar" style="height:46%"><label>Dic</label></div>
+                                <div class="bar" style="height:76%"><label>Ene</label></div>
+                                <div class="bar" style="height:69%"><label>Feb</label></div>
+                                <div class="bar" style="height:57%"><label>Mar</label></div>
+                            </div>
+                            <div class="legend"><span><i></i>Denuncias recibidas</span></div>
+                        </div>
+                        <div class="chart">
+                            <h3>Denuncias por tipo</h3>
+                            <div class="line-chart">
+                                <div class="bar" style="height:88%"><label>Hostigamiento</label></div>
+                                <div class="bar" style="height:59%"><label>Exclusión</label></div>
+                                <div class="bar" style="height:53%"><label>Difamación</label></div>
+                                <div class="bar" style="height:36%"><label>Amenazas</label></div>
+                                <div class="bar" style="height:23%"><label>Otros</label></div>
+                            </div>
+                            <div class="legend"><span><i class="teal"></i>Casos registrados</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="reports" class="admin-page reports-view" hidden>
+                    <div class="filters"><button class="filter active" data-filter="all">Todos</button><button
+                            class="filter" data-filter="pending">Pendientes</button><button class="filter"
+                            data-filter="review">En revisión</button><button class="filter"
+                            data-filter="resolved">Resueltos</button></div>
+                    <div class="report-list">
+                        <article class="report-card" data-status="pending">
+                            <div class="report-head"><span class="anon">ANR-1A2B-3C4D</span><span
+                                    class="badge pending">Pendiente</span></div>
+                            <p>Mensajes amenazantes repetidos en WhatsApp.</p>
+                            <div class="meta"><span>🟠 high</span><span>hostigamiento</span><span>07/03/2026</span>
+                            </div>
+                            <div class="actions"><small>Cambiar estado:</small><button class="action"
+                                    data-status-action="review">En revisión</button><button class="action"
+                                    data-status-action="resolved">Resuelto</button></div>
+                        </article>
+                        <article class="report-card" data-status="review">
+                            <div class="report-head"><span class="anon">ANR-5E6F-7G8H</span><span
+                                    class="badge review">En revisión</span></div>
+                            <p>Exclusión de grupos de estudio por redes sociales.</p>
+                            <div class="meta"><span>🟡 medium</span><span>exclusion</span><span>06/03/2026</span></div>
+                            <div class="actions"><small>Cambiar estado:</small><button class="action"
+                                    data-status-action="pending">Pendiente</button><button class="action"
+                                    data-status-action="resolved">Resuelto</button></div>
+                        </article>
+                        <article class="report-card" data-status="resolved">
+                            <div class="report-head"><span class="anon">ANR-9I0J-1K2L</span><span
+                                    class="badge resolved">Resuelto</span></div>
+                            <p>Publicación de fotos privadas sin consentimiento.</p>
+                            <div class="meta"><span>🔴 critical</span><span>difamacion</span><span>05/03/2026</span>
+                            </div>
+                            <div class="actions"><small>Caso cerrado · registro protegido</small></div>
+                        </article>
+                    </div>
+                </div>
+                <div id="students" class="admin-page" hidden><input class="search" id="search"
+                        placeholder="Buscar alumno o escuela...">
+                    <div class="student-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Alumno (anonimizado)</th>
+                                    <th>Curso</th>
+                                    <th>Establecimiento</th>
+                                    <th>Denuncias</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsBody">
+                                <tr>
+                                    <td>Alumno A</td>
+                                    <td>7° básico</td>
+                                    <td>Escuela Los Pinos</td>
+                                    <td>2</td>
+                                    <td><span class="badge resolved">activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Alumno B</td>
+                                    <td>8° básico</td>
+                                    <td>Liceo Central</td>
+                                    <td>0</td>
+                                    <td><span class="badge resolved">activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Alumno C</td>
+                                    <td>1° medio</td>
+                                    <td>Escuela Los Pinos</td>
+                                    <td>1</td>
+                                    <td><span class="badge pending">seguimiento</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Alumno D</td>
+                                    <td>2° medio</td>
+                                    <td>Liceo Sur</td>
+                                    <td>4</td>
+                                    <td><span class="badge" style="color:#c62828;background:#fce4ec">critico</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="protocolos" class="admin-page" hidden>
+                    <h2 class="title">📋 Protocolos de Acción</h2>
+                    <p class="subtitle" style="margin:8px 0 20px">Guías paso a paso para gestionar cada tipo de
+                        incidente.</p>
+                    <div class="report-list">
+                        <article class="report-card">
+                            <div class="report-head"><strong>🧒 Protocolo de Acoso Escolar (Bullying)</strong><span
+                                    class="badge pending">⏱ 72 horas</span></div>
+                            <p>Recepción del reporte, evaluación inicial, entrevistas separadas, notificación a
+                                apoderados y plan de acción.</p><button class="action protocol">Ver pasos del
+                                protocolo</button>
+                        </article>
+                        <article class="report-card">
+                            <div class="report-head"><strong>💻 Protocolo de Ciberacoso (Cyberbullying)</strong><span
+                                    class="badge review">⏱ 48 horas</span></div>
+                            <p>Documentar evidencia, preservarla, coordinar con familias y activar denuncia formal si
+                                corresponde.</p><button class="action protocol">Ver pasos del protocolo</button>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="view" id="studentView">
+                <div class="mobile-layout">
+                    <div class="phone">
+                        <div class="phone-screen">
+                            <div class="phone-head"><small>BraveNest · modo estudiante</small>
+                                <h2 id="phoneTitle">¿Qué pasó?</h2>
+                                <p id="phoneSub">Tu reporte es anónimo y seguro.</p>
+                            </div>
+                            <div class="phone-body" id="flow">
+                                <div class="progress"><i class="done"></i><i></i><i></i></div>
+                                <div class="phone-label">Elige el tipo de situación</div>
+                                <div class="choice-grid" id="types"><button class="choice"
+                                        data-value="Hostigamiento"><strong>💬</strong><span>Hostigamiento</span><em>Insultos
+                                            o burlas</em></button><button class="choice"
+                                        data-value="Violencia física"><strong>👊</strong><span>Violencia
+                                            física</span><em>Golpes o empujones</em></button><button class="choice"
+                                        data-value="Ciberacoso"><strong>📱</strong><span>Ciberacoso</span><em>Redes o
+                                            mensajes</em></button><button class="choice"
+                                        data-value="Exclusión"><strong>😔</strong><span>Exclusión</span><em>Me dejan
+                                            fuera</em></button></div><button class="primary" id="next"
+                                    disabled>Continuar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch">
+                        <div class="eyebrow" style="color:var(--primary);font-size:11px;font-weight:700">Experiencia
+                            estudiante</div>
+                        <h2>Reportar sin miedo también es parte de la solución.</h2>
+                        <p>La app móvil acompaña al estudiante con un flujo corto y comprensible. La información llega
+                            al mismo panel que acabas de explorar, sin identidad personal.</p>
+                        <ul>
+                            <li>🔒 Sin cuenta, sin nombre y sin rastreo personal.</li>
+                            <li>🎯 Categorías claras para niños y jóvenes.</li>
+                            <li>🧭 Código de seguimiento para consultar el estado.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script>
+        const toast = document.getElementById('toast'); const notify = m => { toast.textContent = m; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2400) };
+        const adminPages = ['dashboard', 'reports', 'students', 'protocolos']; const pageTitles = { dashboard: 'Dashboard — BraveNest', reports: '📋 Reportes de Ciberacoso', students: 'Estudiantes', protocolos: '📋 Protocolos de Acción' }; document.querySelectorAll('.nav button').forEach(btn => btn.onclick = () => { const id = btn.dataset.view; document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active')); btn.classList.add('active'); adminPages.forEach(page => document.getElementById(page).hidden = page !== id); document.getElementById('pageTitle').textContent = pageTitles[id]; });
+        document.querySelectorAll('[data-role]').forEach(btn => btn.onclick = () => { document.querySelectorAll('[data-role]').forEach(b => b.classList.remove('active')); btn.classList.add('active'); const student = btn.dataset.role === 'student'; document.getElementById('schoolView').classList.toggle('active', !student); document.getElementById('studentView').classList.toggle('active', student); });
+        document.querySelectorAll('[data-filter]').forEach(btn => btn.onclick = () => { document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('.report-card').forEach(card => { card.style.display = btn.dataset.filter === 'all' || card.dataset.filter === btn.dataset.filter || card.dataset.filter === undefined && card.dataset.status === btn.dataset.filter ? 'block' : 'none' }); });
+        document.querySelectorAll('[data-status-action]').forEach(btn => btn.onclick = () => { const card = btn.closest('.report-card'); const status = btn.dataset.statusAction; const badge = card.querySelector('.badge'); badge.className = 'badge ' + status; badge.textContent = status === 'pending' ? 'Pendiente' : status === 'review' ? 'En revisión' : 'Resuelto'; card.dataset.status = status; notify('Estado actualizado correctamente'); });
+        document.querySelectorAll('.protocol').forEach(btn => btn.onclick = () => notify('Pasos del protocolo abiertos en el producto final'));
+        document.getElementById('search').oninput = e => { const q = e.target.value.toLowerCase(); document.querySelectorAll('#studentsBody tr').forEach(row => row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none') };
+        const flow = document.getElementById('flow'); let selected = ''; const bindTypes = () => { document.querySelectorAll('#types .choice').forEach(choice => choice.onclick = () => { document.querySelectorAll('#types .choice').forEach(c => c.classList.remove('selected')); choice.classList.add('selected'); selected = choice.dataset.value; document.getElementById('next').disabled = false }); document.getElementById('next').onclick = locationStep }; const locationStep = () => { flow.innerHTML = '<div class="progress"><i class="done"></i><i class="done"></i><i></i></div><div class="phone-label">¿Dónde ocurrió principalmente?</div><div class="choice-grid" id="zones"><button class="choice" data-value="Patio"><strong>🌳</strong><span>Patio</span><em>Recreo o almuerzo</em></button><button class="choice" data-value="Sala"><strong>🏫</strong><span>Sala de clases</span><em>Durante una clase</em></button><button class="choice" data-value="Internet"><strong>📲</strong><span>Internet</span><em>Redes o chat</em></button><button class="choice" data-value="Camino"><strong>🚌</strong><span>Camino</span><em>Entrada o salida</em></button></div><button class="primary" id="zoneNext" disabled>Continuar</button><button class="back" id="back">← Volver</button>'; document.getElementById('phoneTitle').textContent = 'Ubicación'; document.getElementById('phoneSub').textContent = 'Solo necesitamos una zona general.'; let zone = ''; document.querySelectorAll('#zones .choice').forEach(c => c.onclick = () => { document.querySelectorAll('#zones .choice').forEach(x => x.classList.remove('selected')); c.classList.add('selected'); zone = c.dataset.value; document.getElementById('zoneNext').disabled = false }); document.getElementById('zoneNext').onclick = detailStep; document.getElementById('back').onclick = resetFlow }; const detailStep = () => { flow.innerHTML = '<div class="progress"><i class="done"></i><i class="done"></i><i class="done"></i></div><div class="phone-label">Agrega detalles <span style="color:#888;font-weight:400">(opcional)</span></div><textarea class="phone-field" style="width:100%;min-height:110px;padding:10px;border:2px solid #ede7f6;border-radius:10px;resize:vertical" placeholder="Cuéntanos solo lo que te haga sentir seguro/a..."></textarea><button class="primary" id="send">Enviar reporte</button><button class="back" id="back">← Volver</button>'; document.getElementById('phoneTitle').textContent = 'Casi terminamos'; document.getElementById('phoneSub').textContent = 'Tu identidad está protegida.'; document.getElementById('send').onclick = successStep; document.getElementById('back').onclick = locationStep }; const successStep = () => { flow.innerHTML = '<div class="success"><div class="success-icon">✓</div><h2>Reporte enviado</h2><p>El equipo de convivencia ya puede comenzar a revisar la situación.</p><div class="code">ANR-7K4M-92QX</div><p>Guarda este código para consultar el estado sin revelar quién eres.</p><button class="primary" id="new">Hacer otro reporte</button></div>'; document.getElementById('phoneTitle').textContent = 'Gracias por confiar'; document.getElementById('phoneSub').textContent = 'No estás solo/a.'; document.getElementById('new').onclick = resetFlow; notify('Reporte enviado de forma segura') }; const resetFlow = () => { location.reload() }; bindTypes();
+    </script>
+</body>
+
+</html>
