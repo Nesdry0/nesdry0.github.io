@@ -37,18 +37,21 @@
             <h2>Escríbeme</h2>
             <p class="summary-text">Cuéntame si quieres ofrecerme un empleo, solicitar un servicio o conversar sobre una
                 idea.</p>
-            <form id="contactForm" class="contact-form"><label for="contactName">Nombre</label><input id="contactName"
-                    name="name" type="text" autocomplete="name" required><label for="contactEmail">Correo
-                    electrónico</label><input id="contactEmail" name="email" type="email" autocomplete="email"
-                    required><label for="contactReason">Motivo de contacto</label><select id="contactReason"
-                    name="reason" required>
+            <form id="contactForm" class="contact-form" action="https://formspree.io/f/mvkgpaqp" method="POST">
+                <label for="contactName">Nombre</label>
+                <input id="contactName" name="name" type="text" autocomplete="name" required>
+                <label for="contactEmail">Correo electrónico</label>
+                <input id="contactEmail" name="email" type="email" autocomplete="email" required>
+                <label for="contactReason">Motivo de contacto</label>
+                <select id="contactReason" name="reason" required>
                     <option value="">Selecciona una opción</option>
                     <option value="Oferta laboral">Oferta laboral</option>
                     <option value="Servicio o proyecto">Servicio o proyecto</option>
                     <option value="Consulta profesional">Consulta profesional</option>
-                </select><label for="contactMessage">Mensaje</label><textarea id="contactMessage" name="message"
-                    rows="7" required></textarea><button class="btn-link form-submit" type="submit">Enviar
-                    mensaje</button>
+                </select>
+                <label for="contactMessage">Mensaje</label>
+                <textarea id="contactMessage" name="message" rows="7" required></textarea>
+                <button class="btn-link form-submit" type="submit">Enviar mensaje</button>
                 <p id="contactStatus" class="form-status" role="status" aria-live="polite"></p>
             </form>
         </section>
