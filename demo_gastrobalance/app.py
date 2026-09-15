@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Any
 
 import pandas as pd
 import streamlit as st
@@ -12,19 +13,22 @@ SALE_CHANNELS = ["Mostrador", "Delivery propio", "App delivery"]
 ALLOCATION = {"Sueldos": 50, "Ahorro": 20, "Otros costos": 30}
 
 
-def money(value):
+def money(value: float | int) -> str:
     return f"CLP $ {int(round(value)):,}".replace(",", ".")
 
 
-def convert_factor(source, target):
+def convert_factor(source: str, target: str) -> float:
     if source == target:
         return 1
-    return {("kg", "g"): 1000, ("g", "kg"): 0.001,
-            ("l", "ml"): 1000, ("ml", "l"): 0.001,
-            ("pieza", "unid"): 1, ("unid", "pieza"): 1}.get((source, target), 1)
+    factors: dict[tuple[str, str], float] = {
+        ("kg", "g"): 1000, ("g", "kg"): 0.001,
+        ("l", "ml"): 1000, ("ml", "l"): 0.001,
+        ("pieza", "unid"): 1, ("unid", "pieza"): 1,
+    }
+    return factors.get((source, target), 1)
 
 
-def initialise():
+def initialise() -> None:
     if "ingredients" not in st.session_state:
         st.session_state.ingredients = [
             {"name": "Pollo", "category": "Proteinas", "purchase_unit": "kg",
@@ -62,26 +66,34 @@ def initialise():
         st.session_state.sales = []
 
 
-def register_sale(recipe, units, sale_price, channel, delivery_cost, platform_fee, reference, notes):
+def register_sale(recipe: dict[str, Any], units: float, sale_price: float,
+                  channel: str, delivery_cost: float, platform_fee: float,
+                  reference: str, notes: str) -> tuple[bool, str]:
     units = int(units)
-    required_ingredients = []
+    required_ingredients: list[str] = []
     for name, quantity in recipe["ingredients"].items():
-        item = next((item for item in st.session_state.ingredients if item["name"] == name), None)
+        item = next(
+            (item for item in st.session_state.ingredients if item["name"] == name), None)
         if item and item["stock"] < quantity * units:
-            required_ingredients.append(f"{name}: faltan {quantity * units - item['stock']:.0f}")
-    required_packaging = []
+            required_ingredients.append(
+                f"{name}: faltan {quantity * units - item['stock']:.0f}")
+    required_packaging: list[str] = []
     for name, quantity in recipe["packaging"].items():
-        item = next((item for item in st.session_state.packaging if item["name"] == name), None)
+        item = next(
+            (item for item in st.session_state.packaging if item["name"] == name), None)
         if item and item["stock"] < quantity * units:
-            required_packaging.append(f"{name}: faltan {quantity * units - item['stock']:.0f}")
+            required_packaging.append(
+                f"{name}: faltan {quantity * units - item['stock']:.0f}")
     if required_ingredients or required_packaging:
         return False, "Stock insuficiente: " + " | ".join(required_ingredients + required_packaging)
     for name, quantity in recipe["ingredients"].items():
-        item = next((item for item in st.session_state.ingredients if item["name"] == name), None)
+        item = next(
+            (item for item in st.session_state.ingredients if item["name"] == name), None)
         if item:
             item["stock"] -= quantity * units
     for name, quantity in recipe["packaging"].items():
-        item = next((item for item in st.session_state.packaging if item["name"] == name), None)
+        item = next(
+            (item for item in st.session_state.packaging if item["name"] == name), None)
         if item:
             item["stock"] -= quantity * units
     cost, _, _ = recipe_values(recipe)
@@ -93,26 +105,26 @@ def register_sale(recipe, units, sale_price, channel, delivery_cost, platform_fe
     return True, "Venta registrada y stock descontado correctamente."
 
 
-def ingredient_cost(recipe):
+def ingredient_cost(recipe: dict[str, Any]) -> float:
     values = {item["name"]: item for item in st.session_state.ingredients}
     return sum(quantity * values[name]["price"] / values[name]["conversion"]
                for name, quantity in recipe["ingredients"].items() if name in values)
 
 
-def packaging_cost(recipe):
+def packaging_cost(recipe: dict[str, Any]) -> float:
     values = {item["name"]: item for item in st.session_state.packaging}
     return sum(quantity * values[name]["price"]
                for name, quantity in recipe["packaging"].items() if name in values)
 
 
-def recipe_values(recipe):
+def recipe_values(recipe: dict[str, Any]) -> tuple[float, float, float]:
     cost = ingredient_cost(recipe) + packaging_cost(recipe)
     price = cost / (1 - recipe["margin"] /
                     100) if recipe["margin"] < 100 else 0
     return cost, price, price - cost
 
 
-def fixed_total():
+def fixed_total() -> float:
     return sum(item["amount"] for item in st.session_state.fixed_costs)
 
 
@@ -157,18 +169,21 @@ hr { border-color: var(--line); }
 st.sidebar.markdown("# GastroBalance")
 st.sidebar.caption("Inventario, recetas, costeo y punto de equilibrio")
 st.sidebar.subheader("Configuracion de la nube")
-st.sidebar.info("Modo demo local: la informacion se guarda en memoria para probar el flujo sin credenciales.")
-st.sidebar.caption("Replica el flujo de GastroBalance sin PostgreSQL ni Supabase.")
+st.sidebar.info(
+    "Modo demo local: la informacion se guarda en memoria para probar el flujo sin credenciales.")
+st.sidebar.caption(
+    "Replica el flujo de GastroBalance sin PostgreSQL ni Supabase.")
 
 st.title("GastroBalance")
-st.caption("Inventario, recetas, costeo y punto de equilibrio con base de datos en la nube")
+st.caption(
+    "Inventario, recetas, costeo y punto de equilibrio con base de datos en la nube")
 st.markdown("<div class='status'>GastroBalance demo lista. Puedes editar registros y probar el flujo completo con datos de prueba.</div>", unsafe_allow_html=True)
 
 ingredients = st.session_state.ingredients
 packaging = st.session_state.packaging
 recipes = st.session_state.recipes
 fixed = fixed_total()
-recipe_rows = []
+recipe_rows: list[dict[str, Any]] = []
 for recipe in recipes:
     cost, price, margin = recipe_values(recipe)
     recipe_rows.append({"Plato": recipe["name"], "Costo total": cost,
@@ -264,12 +279,16 @@ with tabs[1]:
             packaging.append({"name": pack_name.strip(
             ), "category": pack_category, "unit": pack_unit, "stock": 0.0, "price": 0.0})
             st.success("Empaque guardado.")
-    pack_purchase = st.selectbox("Empaque para compra", [item["name"] for item in packaging], key="purchase_pack")
+    pack_purchase = st.selectbox("Empaque para compra", [
+                                 item["name"] for item in packaging], key="purchase_pack")
     q1, q2 = st.columns(2)
-    pack_quantity = q1.number_input("Cantidad de empaques", min_value=0.0, value=1.0, key="pack_quantity")
-    pack_unit_cost = q2.number_input("Costo unitario", min_value=0.0, step=10.0, key="pack_unit_cost")
+    pack_quantity = q1.number_input(
+        "Cantidad de empaques", min_value=0.0, value=1.0, key="pack_quantity")
+    pack_unit_cost = q2.number_input(
+        "Costo unitario", min_value=0.0, step=10.0, key="pack_unit_cost")
     if st.button("Registrar compra de empaque", key="register_pack_purchase"):
-        item = next(item for item in packaging if item["name"] == pack_purchase)
+        item = next(
+            item for item in packaging if item["name"] == pack_purchase)
         item["stock"] += pack_quantity
         if pack_unit_cost:
             item["price"] = pack_unit_cost
@@ -280,9 +299,11 @@ with tabs[2]:
     with st.form("recipe_form"):
         a, b = st.columns(2)
         new_recipe_name = a.text_input("Nombre del plato")
-        new_margin = b.number_input("Margen objetivo %", min_value=0.0, max_value=99.0, value=35.0, step=1.0)
+        new_margin = b.number_input(
+            "Margen objetivo %", min_value=0.0, max_value=99.0, value=35.0, step=1.0)
         if st.form_submit_button("Guardar receta") and new_recipe_name.strip():
-            recipes.append({"name": new_recipe_name.strip(), "margin": new_margin, "sales": 0, "ingredients": {}, "packaging": {}})
+            recipes.append({"name": new_recipe_name.strip(
+            ), "margin": new_margin, "sales": 0, "ingredients": {}, "packaging": {}})
             st.success("Receta guardada.")
     recipe_name = st.selectbox(
         "Elegir receta", [item["name"] for item in recipes], key="recipe_select")
@@ -311,8 +332,10 @@ with tabs[2]:
     if packaging:
         with st.form("add_recipe_packaging"):
             p1, p2 = st.columns(2)
-            recipe_pack_name = p1.selectbox("Empaque", [item["name"] for item in packaging], key="recipe_pack_select")
-            recipe_pack_quantity = p2.number_input("Cantidad de piezas", min_value=0.0, value=1.0, step=1.0)
+            recipe_pack_name = p1.selectbox(
+                "Empaque", [item["name"] for item in packaging], key="recipe_pack_select")
+            recipe_pack_quantity = p2.number_input(
+                "Cantidad de piezas", min_value=0.0, value=1.0, step=1.0)
             if st.form_submit_button("Agregar / actualizar empaque"):
                 recipe["packaging"][recipe_pack_name] = recipe_pack_quantity
                 st.success("Empaque actualizado en el escandallo.")
@@ -326,7 +349,8 @@ with tabs[3]:
     selected = next(item for item in recipes if item["name"] == selected_name)
     selected_cost, selected_price, _ = recipe_values(selected)
     weekly_col1, weekly_col2 = st.columns(2)
-    weekly_col1.date_input("Semana a analizar", value=date.today(), key="sales_week_input")
+    weekly_col1.date_input("Semana a analizar",
+                           value=date.today(), key="sales_week_input")
     weekly_sales = weekly_col2.number_input(
         "Ventas semanales totales (CLP)", min_value=0.0, value=1640000.0, step=10000.0)
     reference_margin = selected["margin"]
@@ -358,7 +382,8 @@ with tabs[3]:
         "utilidad_disponible_despues_de_fijos": money(max(result, 0)),
     })
     st.info(
-        f"Para alcanzar el equilibrio necesitas vender aproximadamente {break_even_units:,.0f} unidades de {selected['name']} a {money(selected_price)} cada una.".replace(",", ".")
+        f"Para alcanzar el equilibrio necesitas vender aproximadamente {break_even_units:,.0f} unidades de {selected['name']} a {money(selected_price)} cada una.".replace(
+            ",", ".")
     )
     st.divider()
     st.subheader("Distribucion de utilidades")
@@ -371,7 +396,8 @@ with tabs[3]:
     st.dataframe(allocation.assign(Monto=allocation["Monto"].map(
         money)), hide_index=True, use_container_width=True)
     if result <= 0:
-        st.error("No hay utilidad para repartir esta semana. Primero debes superar el punto de equilibrio.")
+        st.error(
+            "No hay utilidad para repartir esta semana. Primero debes superar el punto de equilibrio.")
 
 with tabs[4]:
     st.subheader("Costos fijos semanales")
@@ -398,7 +424,7 @@ with tabs[5]:
     sim_name = st.selectbox("Receta a simular", [
                             item["name"] for item in recipes], key="sim_recipe")
     sim_recipe = next(item for item in recipes if item["name"] == sim_name)
-    limits = []
+    limits: list[tuple[float, str]] = []
     ingredient_values = {item["name"]: item for item in ingredients}
     for name, quantity in sim_recipe["ingredients"].items():
         if quantity > 0 and name in ingredient_values:
