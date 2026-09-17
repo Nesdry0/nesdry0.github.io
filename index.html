@@ -4,6 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; frame-ancestors 'none'; upgrade-insecure-requests;">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
+    <meta name="description"
+        content="Portafolio profesional de Nesdry Osorio, analista programador, desarrolladora web y técnica en contabilidad con experiencia en tecnología y datos.">
     <title>Nesdry Osorio | Analista Programador & Perfil TI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,9 +34,6 @@
     </section>
 
     <div class="bg-3d" aria-hidden="true">
-        <video class="background-video" autoplay muted loop playsinline>
-            <source src="./assets/fondo.mp4" type="video/mp4">
-        </video>
         <div class="background-video-tint"></div>
         <span class="orb orb-1"></span>
         <span class="orb orb-2"></span>
@@ -66,7 +71,11 @@
         <section id="inicio" class="module-section is-visible" data-module="inicio">
             <div class="profile-hero">
                 <div class="profile-photo" data-photo-slot>
-                    <img src="./assets/foto-perfil.png" alt="Foto de Nesdry Osorio" data-profile-photo>
+                    <picture>
+                        <source type="image/webp" srcset="./assets/foto-perfil.webp">
+                        <img src="./assets/foto-perfil.webp" alt="Foto de Nesdry Osorio" data-profile-photo
+                            loading="eager" decoding="async" fetchpriority="high">
+                    </picture>
                     <span class="photo-fallback" aria-hidden="true">NO</span>
                 </div>
                 <div class="profile-copy">
@@ -248,8 +257,9 @@
                         <a class="btn-link btn-link--small" href="./portfolio-demo/index.html" target="_blank"
                             rel="noopener noreferrer">Abrir demo</a>
                     </div>
-                    <iframe src="./portfolio-demo/index.html" title="Demo completa de BraveNest"
-                        loading="lazy"></iframe>
+                    <div class="demo-fallback" aria-label="Vista previa segura de la demo BraveNest">
+                        <p>Proyecto de demostración con flujo de denuncia anónima, validación y gestión de casos.</p>
+                    </div>
                 </div>
             </div>
 

@@ -1,0 +1,6 @@
+Contact: mailto:Nesdry12@gmail.com
+Encryption: https://nesdryosorio.dev/
+Acknowledgments: https://nesdryosorio.dev/
+Policy: https://nesdryosorio.dev/
+Preferred-Languages: es, en
+Canonical: https://nesdryosorio.dev/.well-known/security.txt

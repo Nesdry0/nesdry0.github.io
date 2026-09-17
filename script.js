@@ -1,4 +1,17 @@
 (function () {
+    function sanitizeText(value) {
+        return String(value == null ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function isSuspiciousInput(value) {
+        return /(<|>|javascript:|on\w+=|data:)/i.test(String(value || ''));
+    }
+
     var contactForm = document.getElementById('contactForm');
     var contactStatus = document.getElementById('contactStatus');
     var welcomeOverlay = document.querySelector('.welcome-overlay');
@@ -106,7 +119,75 @@
         });
     });
 
-    if (contactForm && contactStatus) {
+    if (contactForm) {
+        contactForm.setAttribute('accept-charset', 'UTF-8');
+        contactForm.addEventListener('submit', function (event) {
+            var name = contactForm.querySelector('[name="name"]');
+            var email = contactForm.querySelector('[name="email"]');
+            var message = contactForm.querySelector('[name="message"]');
+            var reason = contactForm.querySelector('[name="reason"]');
+
+            var fields = [name, email, message, reason];
+            var invalid = false;
+
+            fields.forEach(function (field) {
+                if (!field) {
+                    invalid = true;
+                    return;
+                }
+
+                field.value = String(field.value || '').trim();
+
+                if (isSuspiciousInput(field.value)) {
+                    field.value = sanitizeText(field.value);
+                    invalid = true;
+                }
+            });
+
+            if (!name || !email || !message || !reason || invalid) {
+                event.preventDefault();
+                if (contactStatus) {
+                    contactStatus.textContent = 'Revisa los datos del formulario antes de enviarlos.';
+                    contactStatus.style.color = '#ffb4b4';
+                }
+                return;
+            }
+
+            if (name.value.length < 2 || name.value.length > 80) {
+                event.preventDefault();
+                if (contactStatus) {
+                    contactStatus.textContent = 'El nombre debe tener entre 2 y 80 caracteres.';
+                    contactStatus.style.color = '#ffb4b4';
+                }
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                event.preventDefault();
+                if (contactStatus) {
+                    contactStatus.textContent = 'Ingresa un correo electrónico válido.';
+                    contactStatus.style.color = '#ffb4b4';
+                }
+                return;
+            }
+
+            if (message.value.length < 10 || message.value.length > 1000) {
+                event.preventDefault();
+                if (contactStatus) {
+                    contactStatus.textContent = 'El mensaje debe tener entre 10 y 1000 caracteres.';
+                    contactStatus.style.color = '#ffb4b4';
+                }
+                return;
+            }
+
+            if (contactStatus) {
+                contactStatus.textContent = 'Tu mensaje está listo para enviarse.';
+                contactStatus.style.color = '#d6ffe1';
+            }
+        });
+    }
+
+    if (contactStatus) {
         contactStatus.textContent = 'Envía tu mensaje y revisa tu correo o Formspree.';
     }
 

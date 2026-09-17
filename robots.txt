@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Evita indexar contenido auxiliar o demo interna si luego agregas más rutas privadas.
+# Si quieres bloquear por carpetas, agrega:
+# Disallow: /private/
+# Disallow: /tmp/
