@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; frame-ancestors 'none'; upgrade-insecure-requests;">
+        content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; media-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
     <meta name="description"
         content="Portafolio de Nesdry Osorio con proyectos de desarrollo web, UX, datos y soluciones tecnológicas para negocio y educación.">
@@ -19,13 +18,18 @@
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"
+        integrity="sha256-Ca/6BDcRAICtaBZY7pV1rJIQru9IGMrXBeoZA6QBZpE=" crossorigin="anonymous" defer></script>
     <script src="script.js" defer></script>
 </head>
 
 <body class="show-cv page-shell">
     <div class="bg-3d" aria-hidden="true">
-        <div class="background-video-tint"></div><span class="orb orb-1"></span><span class="orb orb-2"></span><span
-            class="orb orb-3"></span><span class="mesh-layer"></span>
+        <div id="particles-js" class="particles-background"></div>
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+        <span class="mesh-layer"></span>
     </div>
     <main class="container page-container">
         <header>
@@ -48,8 +52,44 @@
                     </div><a class="btn-link btn-link--small" href="./portfolio-demo/index.html" target="_blank"
                         rel="noopener noreferrer">Abrir demo</a>
                 </div>
-                <div class="demo-fallback" aria-label="Vista previa segura de la demo BraveNest">
-                    <p>Proyecto de demostración con flujo de denuncia anónima, validación y gestión de casos.</p>
+                <div class="brave-mockup" aria-label="Vista previa del panel de BraveNest">
+                    <div class="brave-window">
+                        <div class="brave-header">
+                            <div class="traffic"><span></span><span></span><span></span></div>
+                            <span class="brave-url">bravenest.app</span>
+                        </div>
+                        <div class="brave-layout">
+                            <aside class="brave-sidebar">
+                                <button class="brave-nav is-active" type="button">Dashboard</button>
+                                <button class="brave-nav" type="button">Casos</button>
+                                <button class="brave-nav" type="button">Reportes</button>
+                                <button class="brave-nav" type="button">Alertas</button>
+                            </aside>
+                            <div class="brave-content">
+                                <div class="brave-metrics">
+                                    <div class="metric-card"><small>Casos activos</small><strong>18</strong></div>
+                                    <div class="metric-card"><small>Resueltos</small><strong>72%</strong></div>
+                                    <div class="metric-card"><small>Urgencia</small><strong>4</strong></div>
+                                </div>
+                                <div class="brave-chart" aria-hidden="true">
+                                    <span style="height:34%"></span>
+                                    <span style="height:52%"></span>
+                                    <span style="height:45%"></span>
+                                    <span style="height:76%"></span>
+                                    <span style="height:64%"></span>
+                                    <span style="height:88%"></span>
+                                </div>
+                                <div class="brave-table">
+                                    <div class="row"><span>Reporte #104</span><span class="pill success">Activa</span>
+                                    </div>
+                                    <div class="row"><span>Reporte #110</span><span class="pill warn">Revisión</span>
+                                    </div>
+                                    <div class="row"><span>Reporte #118</span><span class="pill info">Archivado</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

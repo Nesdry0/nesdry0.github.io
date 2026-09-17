@@ -16,11 +16,23 @@
     var contactStatus = document.getElementById('contactStatus');
     var welcomeOverlay = document.querySelector('.welcome-overlay');
     var welcomeButton = document.querySelector('.welcome-button');
-    var backgroundVideo = document.querySelector('.background-video');
-
-    if (backgroundVideo) {
-        backgroundVideo.muted = true;
-        backgroundVideo.volume = 0;
+    if (window.particlesJS && document.getElementById('particles-js')) {
+        window.particlesJS('particles-js', {
+            particles: {
+                number: { value: 58, density: { enable: true, value_area: 850 } },
+                color: { value: ['#1769aa', '#4db7d9', '#7bc8ed'] },
+                opacity: { value: 0.42, random: true, anim: { enable: true, speed: 0.7, opacity_min: 0.16, sync: false } },
+                size: { value: 2, random: true, anim: { enable: true, speed: 1.2, size_min: 0.6, sync: false } },
+                line_linked: { enable: true, distance: 155, color: '#4b9fca', opacity: 0.22, width: 1 },
+                move: { enable: true, speed: 0.55, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: false, mode: 'push' }, resize: true },
+                modes: { grab: { distance: 170, line_linked: { opacity: 0.42 } } }
+            },
+            retina_detect: true
+        });
     }
 
     if (welcomeOverlay) {
@@ -38,7 +50,9 @@
         });
 
         if (welcomeButton) {
-            welcomeButton.addEventListener('click', closeWelcome);
+            welcomeButton.addEventListener('click', function () {
+                closeWelcome();
+            });
         }
     }
     var demoScreens = document.querySelectorAll('.demo-screen');

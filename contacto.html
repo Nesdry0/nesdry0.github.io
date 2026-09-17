@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; frame-ancestors 'none'; upgrade-insecure-requests;">
+        content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; media-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://formspree.io; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
     <meta name="description"
         content="Contacto profesional de Nesdry Osorio para oportunidades laborales, proyectos y consultas sobre tecnología, desarrollo y análisis de datos.">
@@ -19,13 +18,18 @@
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"
+        integrity="sha256-Ca/6BDcRAICtaBZY7pV1rJIQru9IGMrXBeoZA6QBZpE=" crossorigin="anonymous" defer></script>
     <script src="script.js" defer></script>
 </head>
 
 <body class="show-cv page-shell">
     <div class="bg-3d" aria-hidden="true">
-        <div class="background-video-tint"></div><span class="orb orb-1"></span><span class="orb orb-2"></span><span
-            class="orb orb-3"></span><span class="mesh-layer"></span>
+        <div id="particles-js" class="particles-background"></div>
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+        <span class="mesh-layer"></span>
     </div>
     <main class="container page-container">
         <header><span class="header-tag">Contacto</span>
@@ -34,10 +38,42 @@
             <nav class="site-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a
                     href="portafolio.html">Portafolio</a><a href="curriculum.html">Currículum</a><a class="active"
                     href="contacto.html">Contacto</a></nav>
-            <div class="contact-bar"><span class="contact-item">📍 Quinta Normal, Santiago</span><span
-                    class="contact-item">✉️ <a href="mailto:Nesdry12@gmail.com">Nesdry12@gmail.com</a></span><span
-                    class="contact-item">💼 <a href="https://www.linkedin.com/in/nesdry-osorio-ojeda-980374185/"
-                        target="_blank" rel="noopener noreferrer">LinkedIn</a></span></div>
+            <div class="contact-bar" aria-label="Información de contacto">
+                <a class="contact-item icon-link" href="https://maps.google.com/?q=Quinta+Normal+Santiago"
+                    target="_blank" rel="noopener noreferrer" aria-label="Ubicación de Quinta Normal, Santiago">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Zm0-8.5A2.5 2.5 0 1 1 12 7a2.5 2.5 0 0 1 0 5.5Z" />
+                    </svg>
+                </a>
+                <a class="contact-item icon-link" href="tel:+56962648669" aria-label="Llamar por teléfono">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.35 2.3.54 3.5.54a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.3 21 3 12.7 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.54 3.5a1 1 0 0 1-.24 1l-2.2 2.3Z" />
+                    </svg>
+                </a>
+                <a class="contact-item icon-link" href="mailto:Nesdry12@gmail.com"
+                    aria-label="Enviar correo electrónico">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25V6.75Zm2.2-.25 6.8 5.2 6.8-5.2H5.2Zm13.05 11.5h.5c.5 0 .9-.4.9-.9V7.8l-6.16 4.7a1.3 1.3 0 0 1-1.54 0L4.3 7.8v9.3c0 .5.4.9.9.9h.5v-7.1h1.2v7.1h10.35v-7.1h1.2v7.1Z" />
+                    </svg>
+                </a>
+                <a class="contact-item icon-link" href="https://www.linkedin.com/in/nesdry-osorio-ojeda-980374185/"
+                    target="_blank" rel="noopener noreferrer" aria-label="Perfil de LinkedIn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M6.94 8.5A1.56 1.56 0 1 1 6.94 5.4a1.56 1.56 0 0 1 0 3.1ZM5.5 9.7h2.9v8.8H5.5V9.7Zm5.1 0h2.8v1.2h.04c.39-.74 1.34-1.52 2.76-1.52 2.95 0 3.5 1.94 3.5 4.46v4.64h-2.9v-4.35c0-1.04-.02-2.38-1.45-2.38-1.45 0-1.67 1.13-1.67 2.3v4.43h-2.9V9.7Z" />
+                    </svg>
+                </a>
+                <a class="contact-item icon-link" href="https://github.com/Nesdry0" target="_blank"
+                    rel="noopener noreferrer" aria-label="Perfil de GitHub">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M12 2.2A9.8 9.8 0 0 0 9.3 21.7c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.4 1.2 3 .9.1-.7.3-1.2.6-1.5-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2.1 1.1-2.8-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 .9a10.4 10.4 0 0 1 5.5 0c2.1-1.2 3-.9 3-.9.6 1.5.2 2.6.1 2.9.7.7 1.1 1.7 1.1 2.8 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A9.8 9.8 0 0 0 12 2.2Z" />
+                    </svg>
+                </a>
+            </div>
         </header>
         <section class="page-section">
             <h2>Escríbeme</h2>
